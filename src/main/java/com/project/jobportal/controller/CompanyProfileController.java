@@ -97,7 +97,7 @@ public class CompanyProfileController {
         recruiterProfileService.addNew(currentRecruiter);
 
         // Save the uploaded image file to the specified directory
-        String uploadDir = "photos/recruiter/" + companyProfile.getId();
+        String uploadDir = "photos/company/" + companyProfile.getId();
         try {
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         } catch (Exception e) {
