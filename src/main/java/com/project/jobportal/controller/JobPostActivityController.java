@@ -1,18 +1,33 @@
 package com.project.jobportal.controller;
 
+import com.project.jobportal.entity.CompanyProfile;
+import com.project.jobportal.entity.JobListing;
+import com.project.jobportal.entity.RecruiterProfile;
+import com.project.jobportal.entity.User;
+import com.project.jobportal.service.CompanyProfileService;
+import com.project.jobportal.service.JobListingService;
+import com.project.jobportal.service.RecruiterProfileService;
 import com.project.jobportal.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class JobPostActivityController {
     private final UserService userService;
+    private final JobListingService jobListingService;
+    private final CompanyProfileService companyProfileService;
 
     @Autowired
-    public JobPostActivityController(UserService userService) {
+    public JobPostActivityController(UserService userService, JobListingService jobListingService, CompanyProfileService companyProfileService) {
         this.userService = userService;
+        this.jobListingService = jobListingService;
+        this.companyProfileService = companyProfileService;
     }
 
     @GetMapping("/dashboard/")
@@ -24,6 +39,28 @@ public class JobPostActivityController {
         model.addAttribute("username", currentUserName);
         model.addAttribute("user", currentUserProfile);
         return "dashboard";
+    }
 
+    @GetMapping("/dashboard/add-job")
+    public String addJob(Model model){
+        model.addAttribute("jobPostActivity", new JobListing());
+        model.addAttribute("user", userService.getCurrentUserName());
+        System.out.println("From Add Job");
+        return "add-jobs";
+    }
+
+    @PostMapping("/dashboard/addNew")
+    public String addJobPost(JobListing jobListing, Model model){
+        System.out.println("From Add Job Post");
+        System.out.println(jobListing);
+        User currentUser = userService.getCurrentUser();
+        if(currentUser != null){
+            jobListing.setPostedBy(currentUser);
+        }
+        jobListing.setPostedDate(new Date());
+        jobListing.setCompany(companyProfileService.getCurrentCompany());
+        model.addAttribute("jobPostActivity", jobListing);
+        jobListingService.addJobListing(jobListing);
+        return "redirect:/dashboard/";
     }
 }

@@ -1,9 +1,6 @@
 package com.project.jobportal.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -11,6 +8,7 @@ import jakarta.validation.constraints.Size;
 public class Location {
     @Id
     @Column(name = "location_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Size(max = 255)

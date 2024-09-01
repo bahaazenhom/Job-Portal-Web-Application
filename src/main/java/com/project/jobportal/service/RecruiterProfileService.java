@@ -26,7 +26,4 @@ public class RecruiterProfileService {
         recruiterProfileRepository.save(recruiterProfile);
     }
 
-    public Optional<RecruiterProfile> getCompanyProfileById(int userId) {
-        return recruiterProfileRepository.findById(userId);
-    }
 }
