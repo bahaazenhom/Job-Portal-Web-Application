@@ -111,7 +111,6 @@ public class RecruiterProfile {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", profilePhotoUrl='" + profilePhotoUrl + '\'' +
-                ", companyProfile=" + companyProfile +
                 ", location=" + location +
                 '}';
     }

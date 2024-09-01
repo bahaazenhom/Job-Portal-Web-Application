@@ -54,6 +54,15 @@ public class CompanyProfile {
     @OneToMany(mappedBy = "companyProfile")
     private Set<RecruiterProfile> recruiterProfiles = new LinkedHashSet<>();
 
+    public CompanyProfile(int companyId, String name, String s) {
+        this.id = companyId;
+        this.name = name;
+        this.logoUrl = s;
+    }
+
+    public CompanyProfile() {
+    }
+
     public Integer getId() {
         return id;
     }
@@ -154,7 +163,7 @@ public class CompanyProfile {
                 ", whyJoinUs='" + whyJoinUs + '\'' +
                 ", foundedDate=" + foundedDate +
                 ", locations=" + locations +
-                ", jobListings=" + jobListings +
+                ", recruiterProfiles=" + recruiterProfiles +
                 '}';
     }
 }

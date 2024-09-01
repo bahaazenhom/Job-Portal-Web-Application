@@ -23,6 +23,16 @@ public class Location {
     @Column(name = "state")
     private String state;
 
+    public Location(int locationId, String city, String state, String country) {
+        this.id=locationId;
+        this.city = city;
+        this.country = country;
+        this.state = state;
+    }
+
+    public Location() {
+    }
+
     public Integer getId() {
         return id;
     }
@@ -55,4 +65,13 @@ public class Location {
         this.state = state;
     }
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
 }

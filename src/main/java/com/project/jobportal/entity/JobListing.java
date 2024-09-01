@@ -204,4 +204,25 @@ public class JobListing {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
+
+    @Override
+    public String toString() {
+        return "JobListing{" +
+                "id=" + id +
+                ", postedBy=" + postedBy +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", jobType='" + jobType + '\'' +
+                ", postedDate=" + postedDate +
+                ", remoteOption='" + remoteOption + '\'' +
+                ", salary=" + salary +
+                ", salaryMin=" + salaryMin +
+                ", salaryMax=" + salaryMax +
+                ", salaryCurrency='" + salaryCurrency + '\'' +
+                ", companyProfile=" + companyProfile +
+                ", yearsOfExperience=" + yearsOfExperience +
+                ", benefits='" + benefits + '\'' +
+                ", location=" + location +
+                '}';
+    }
 }

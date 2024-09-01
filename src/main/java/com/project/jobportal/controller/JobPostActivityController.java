@@ -1,9 +1,6 @@
 package com.project.jobportal.controller;
 
-import com.project.jobportal.entity.CompanyProfile;
-import com.project.jobportal.entity.JobListing;
-import com.project.jobportal.entity.RecruiterProfile;
-import com.project.jobportal.entity.User;
+import com.project.jobportal.entity.*;
 import com.project.jobportal.service.CompanyProfileService;
 import com.project.jobportal.service.JobListingService;
 import com.project.jobportal.service.RecruiterProfileService;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -38,6 +36,9 @@ public class JobPostActivityController {
         System.out.println("current user ------------------"+currentUserName);
         model.addAttribute("username", currentUserName);
         model.addAttribute("user", currentUserProfile);
+        List<RecruiterJobsDto> recruiterJobs = jobListingService.getRecruiterJobs(19);
+       // recruiterJobs.forEach(System.out::println);
+        model.addAttribute("jobList", recruiterJobs);
         return "dashboard";
     }
 
