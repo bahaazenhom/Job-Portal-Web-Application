@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Date;
@@ -63,5 +64,21 @@ public class JobPostActivityController {
         model.addAttribute("jobPostActivity", jobListing);
         jobListingService.addJobListing(jobListing);
         return "redirect:/dashboard/";
+    }
+
+    @GetMapping("job-details-apply/{id}")
+    public String jobDetailsApply(@PathVariable int id, Model model){
+        Optional<JobListing> jobListing = jobListingService.getJobListingById(id);
+        jobListing.ifPresent(value -> model.addAttribute("jobDetails", value));
+        model.addAttribute("user", userService.getCurrentUserProfile());
+        return "job-details";
+    }
+
+    @PostMapping("job-details/edit/{id}")
+    public String jobDetailsEdit(@PathVariable int id, Model model){
+        Optional<JobListing> jobListing = jobListingService.getJobListingById(id);
+        jobListing.ifPresent(value -> model.addAttribute("jobPostActivity", value));
+        model.addAttribute("user", userService.getCurrentUserProfile());
+        return "add-jobs";
     }
 }
