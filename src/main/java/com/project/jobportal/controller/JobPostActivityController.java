@@ -30,33 +30,29 @@ public class JobPostActivityController {
     }
 
     @GetMapping("/dashboard/")
-    public String searchJobs(Model model){
-        System.out.println("From Dashboard");
+    public String searchJobs(Model model) {
         Object currentUserProfile = userService.getCurrentUserProfile();
         String currentUserName = userService.getCurrentUserName();
-        System.out.println("current user ------------------"+currentUserName);
         model.addAttribute("username", currentUserName);
         model.addAttribute("user", currentUserProfile);
-        List<RecruiterJobsDto> recruiterJobs = jobListingService.getRecruiterJobs(19);
-       // recruiterJobs.forEach(System.out::println);
-        model.addAttribute("jobList", recruiterJobs);
+        if (currentUserProfile instanceof RecruiterProfile) {
+            List<RecruiterJobsDto> recruiterJobs = jobListingService.getRecruiterJobs(((RecruiterProfile) currentUserProfile).getRecruiterId());
+            model.addAttribute("jobList", recruiterJobs);
+        }
         return "dashboard";
     }
 
     @GetMapping("/dashboard/add-job")
-    public String addJob(Model model){
+    public String addJob(Model model) {
         model.addAttribute("jobPostActivity", new JobListing());
         model.addAttribute("user", userService.getCurrentUserName());
-        System.out.println("From Add Job");
         return "add-jobs";
     }
 
     @PostMapping("/dashboard/addNew")
-    public String addJobPost(JobListing jobListing, Model model){
-        System.out.println("From Add Job Post");
-        System.out.println(jobListing);
+    public String addJobPost(JobListing jobListing, Model model) {
         User currentUser = userService.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             jobListing.setPostedBy(currentUser);
         }
         jobListing.setPostedDate(new Date());
@@ -67,7 +63,7 @@ public class JobPostActivityController {
     }
 
     @GetMapping("job-details-apply/{id}")
-    public String jobDetailsApply(@PathVariable int id, Model model){
+    public String jobDetailsApply(@PathVariable int id, Model model) {
         Optional<JobListing> jobListing = jobListingService.getJobListingById(id);
         jobListing.ifPresent(value -> model.addAttribute("jobDetails", value));
         model.addAttribute("user", userService.getCurrentUserProfile());
@@ -75,7 +71,7 @@ public class JobPostActivityController {
     }
 
     @PostMapping("job-details/edit/{id}")
-    public String jobDetailsEdit(@PathVariable int id, Model model){
+    public String jobDetailsEdit(@PathVariable int id, Model model) {
         Optional<JobListing> jobListing = jobListingService.getJobListingById(id);
         jobListing.ifPresent(value -> model.addAttribute("jobPostActivity", value));
         model.addAttribute("user", userService.getCurrentUserProfile());

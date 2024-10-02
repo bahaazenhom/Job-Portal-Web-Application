@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8"/>
@@ -19,12 +18,10 @@
 
 <body>
 <header class="navbar navbar-expand-lg navbar-dark">
-    <label class="mt-2 ms-5 font-weight-bold h5"
-    ><a th:href="@{/dashboard/}">hotdevjobs</a
-    ><span class="logo_com font-weight-bold h5" style="color: white">
-          .com</span
-    ></label
-    >
+    <label class="mt-2 ms-5 font-weight-bold h5">
+        <a th:href="@{/dashboard/}">CareerPress</a>
+        <span class="logo_com font-weight-bold h5" style="color: white">.com</span>
+    </label>
     <button
             class="navbar-toggler"
             type="button"
@@ -80,12 +77,10 @@
         <img
                 class="rounded-circle me-3"
                 height="50px"
-                width="50x"
-                th:if="${user.profilePhoto!=null}"
-                th:src="@{${user?.profilePhoto}}"
-        />
-
-
+                width="50px"
+                th:if="${user.photoImagePath != null}"
+                th:src="@{${user.photoImagePath}}"
+         alt="error"/>
         <label th:if="${user.firstName != null && user.lastName != null}"
                th:text="${user.firstName+' '+user.lastName}"
                class="nav-item nav-link px-2 me-3">
@@ -126,16 +121,7 @@
                                 sec:authorize="hasAuthority('Recruiter')"
                                 th:text="'(' + ${jobPost.totalCandidates} + ' Candidates Applied)'"
                         >(xx candidates applied)</span>
-                        <span
-                                class="title-span"
-                                sec:authorize="hasAuthority('Job Seeker')"
-                                th:if="${jobPost.isActive == true}"
-                        >(Applied)</span>
-                        <span
-                                class="title-span"
-                                sec:authorize="hasAuthority('Job Seeker')"
-                                th:if="${jobPost.isSaved == true}"
-                        >(Saved)</span>
+
                     </label>
                 </div>
                 <div class="col-md-4 text-center">

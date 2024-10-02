@@ -67,8 +67,7 @@ public class RecruiterProfileController {
             String currentUserName = authentication.getName();
             User user = userRepository.
                     findByEmail(currentUserName).orElseThrow(() -> new RuntimeException("User not found"));
-            recruiterProfile.setUser(user);
-            recruiterProfile.setRecruiterId(user.getUserId());
+            recruiterProfile = recruiterProfileService.getRecruiterProfileById(user.getUserId()).orElse(null);
         }
 
         // Add the recruiter profile to the model

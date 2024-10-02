@@ -44,13 +44,13 @@ public class JobSeekerProfile {
     @Column(name = "gender", length = 10)
     private String gender;
 
-    @OneToMany(targetEntity = JobSeekerSkill.class, mappedBy = "jobSeeker", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<JobSeekerSkill> skills;
+    @OneToMany(targetEntity = Skill.class, mappedBy = "jobSeeker", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Skill> skills;
 
     public JobSeekerProfile() {
     }
 
-    public JobSeekerProfile(User user, String firstName, String lastName, String profilePhotoUrl, String resumeUrl, String employmentType, String workAuthorization, String gender, List<JobSeekerSkill> skills) {
+    public JobSeekerProfile(User user, String firstName, String lastName, String profilePhotoUrl, String resumeUrl, String employmentType, String workAuthorization, String gender, List<Skill> skills) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -60,6 +60,11 @@ public class JobSeekerProfile {
         this.workAuthorization = workAuthorization;
         this.gender = gender;
         this.skills = skills;
+    }
+    @Transient
+    public String getPhotoImagePath(){
+        if(profilePhotoUrl == null || id == null) return null;
+        return "/photos/JobSeeker/ProfilePhotos/" + id + "/" + profilePhotoUrl;
     }
 
     public Integer getId() {
@@ -134,11 +139,11 @@ public class JobSeekerProfile {
         this.gender = gender;
     }
 
-    public List<JobSeekerSkill> getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<JobSeekerSkill> skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
 

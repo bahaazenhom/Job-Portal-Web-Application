@@ -71,8 +71,12 @@ public class RecruiterProfile {
     }
 
     @Transient
-    public String getProfilePhoto() {
+    public String getPhotoImagePath() {
         return profilePhotoUrl == null ? null : "/photos/recruiter/" + recruiterId + "/" + profilePhotoUrl;
+    }
+
+    public @Size(max = 64) String getProfilePhoto() {
+        return profilePhotoUrl;
     }
 
     public void setProfilePhotoUrl(String profilePhotoUrl) {

@@ -64,6 +64,16 @@
             <artifactId>webjars-locator</artifactId>
             <version>0.52</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.6.0</version> <!-- Use the appropriate version -->
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>popper.js</artifactId>
+            <version>1.14.7</version> <!-- Use the appropriate version -->
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
         <dependency>
             <groupId>org.webjars</groupId>
